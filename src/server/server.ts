@@ -7,6 +7,9 @@ import { accessLog, startupLog, syncLog } from '@/utils/log4js'
 import { SYNC_CLOSE_CODE, SYNC_CODE } from '@/constants'
 import { getUserSpace, releaseUserSpace, getUserName, getServerId } from '@/user'
 import { createMsg2call } from 'message2call'
+import { handleAdminApi } from './admin'
+import fs from 'node:fs'
+import path from 'node:path'
 
 
 let status: LX.Sync.Status = {
@@ -125,9 +128,48 @@ function onSocketError(err: Error) {
   console.error(err)
 }
 
+const serveAdminFile = (res: http.ServerResponse, fileName: string) => {
+  const adminDir = path.join(__dirname, '..', 'admin')
+  const filePath = path.join(adminDir, fileName)
+  if (!filePath.startsWith(adminDir) || !fs.existsSync(filePath) || !fs.statSync(filePath).isFile()) {
+    res.writeHead(404)
+    res.end('Not found')
+    return
+  }
+  const ext = path.extname(filePath).toLowerCase()
+  const types: Record<string, string> = {
+    '.html': 'text/html; charset=utf-8',
+    '.css': 'text/css; charset=utf-8',
+    '.js': 'application/javascript; charset=utf-8',
+    '.json': 'application/json; charset=utf-8',
+    '.ico': 'image/x-icon',
+    '.png': 'image/png',
+    '.svg': 'image/svg+xml',
+  }
+  res.writeHead(200, { 'Content-Type': types[ext] || 'application/octet-stream' })
+  fs.createReadStream(filePath).pipe(res)
+}
+
 const handleStartServer = async(port = 9527, ip = '127.0.0.1') => await new Promise((resolve, reject) => {
-  const httpServer = http.createServer((req, res) => {
-    // console.log(req.url)
+  const httpServer = http.createServer(async(req, res) => {
+    const reqUrl = req.url?.split('?')[0] || ''
+
+    // 1. 管理 API (需要认证)
+    if (await handleAdminApi(req, res)) return
+
+    // 2. 管理面板静态文件 (无需认证)
+    if (reqUrl === '/admin' || reqUrl === '/admin/') {
+      reqUrl.replace(/\/$/, '')
+      serveAdminFile(res, 'index.html')
+      return
+    }
+    if (reqUrl.startsWith('/admin/')) {
+      const fileName = reqUrl.slice('/admin/'.length)
+      serveAdminFile(res, fileName || 'index.html')
+      return
+    }
+
+    // 3. 原有路由
     const endUrl = `/${req.url?.split('/').at(-1) ?? ''}`
     let code
     let msg

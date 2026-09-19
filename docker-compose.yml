@@ -1,0 +1,19 @@
+services:
+  lx-music-sync:
+    build: .
+    container_name: lx-music-sync
+    ports:
+      - "${PORT:-9527}:9527"
+    volumes:
+      - ./data:/server/data
+    environment:
+      - NODE_ENV=production
+      - PORT=${PORT:-9527}
+      - BIND_IP=0.0.0.0
+      - ADMIN_TOKEN=${ADMIN_TOKEN:-change-me}
+      - LX_USER_user1=${LX_USER_user1:-}
+      - LX_USER_user2=${LX_USER_user2:-}
+      # - PROXY_HEADER=${PROXY_HEADER:-}
+      # - MAX_SNAPSHOT_NUM=${MAX_SNAPSHOT_NUM:-10}
+      # - LIST_ADD_MUSIC_LOCATION_TYPE=${LIST_ADD_MUSIC_LOCATION_TYPE:-top}
+    restart: always

@@ -7,6 +7,7 @@ declare global {
     dataPath: string
     userPath: string
     config: LX.Config
+    adminToken?: string
   }
 
   // var envParams: LX.EnvParams

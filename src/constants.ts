@@ -8,6 +8,7 @@ export const ENV_PARAMS = [
   'MAX_SNAPSHOT_NUM',
   'LIST_ADD_MUSIC_LOCATION_TYPE',
   'LX_USER_',
+  'ADMIN_TOKEN',
 ] as const
 
 export const SPLIT_CHAR = {
@@ -59,6 +60,7 @@ export const File = {
   serverInfoJSON: 'serverInfo.json',
   userDir: 'users',
   userDevicesJSON: 'devices.json',
+  userConfigJSON: 'users.json',
   listDir: 'list',
   listSnapshotDir: 'snapshot',
   listSnapshotInfoJSON: 'snapshotInfo.json',

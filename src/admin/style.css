@@ -1,0 +1,30 @@
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:system-ui,-apple-system,sans-serif;background:linear-gradient(135deg,#667eea,#764ba2);min-height:100vh;padding:20px}
+#login,#app{max-width:800px;margin:0 auto;background:#fff;border-radius:12px;padding:30px;box-shadow:0 10px 40px rgba(0,0,0,.2)}
+#login{max-width:400px;margin:50px auto;text-align:center}
+#login h1{color:#667eea;font-size:22px;margin-bottom:5px}
+#login p{color:#888;margin-bottom:20px}
+#login input,#app input,#app select{width:100%;padding:10px;border:1px solid #ddd;border-radius:6px;font-size:14px;margin-bottom:10px}
+#login button{width:100%;padding:10px;background:#667eea;color:#fff;border:none;border-radius:6px;font-size:14px;cursor:pointer}
+#login button:hover{background:#5a6fd6}
+#err,#uerr{color:#e74c3c;padding:8px;margin-top:5px;background:#fdf;border-radius:4px;display:none}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;padding-bottom:15px;border-bottom:1px solid #eee}
+.top h1{color:#667eea;font-size:18px}
+.tabs{display:flex;gap:8px;margin-bottom:20px}
+.tab{padding:8px 16px;border:none;background:#f0f0f0;border-radius:6px;cursor:pointer;font-size:14px}
+.tab.on{background:#667eea;color:#fff}
+button{padding:8px 16px;background:#667eea;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:13px}
+button:hover{background:#5a6fd6}
+.b2{background:#6c757d}.b2:hover{background:#5a6268}
+.b3{background:#e74c3c}.b3:hover{background:#c0392b}
+.b4{background:#27ae60}.b4:hover{background:#229954}
+.row{display:flex;gap:10px;margin-bottom:10px}
+.row input{margin-bottom:0}
+h3{color:#333;font-size:15px;margin:15px 0 10px}
+.item{display:flex;justify-content:space-between;align-items:center;padding:10px;border-bottom:1px solid #eee}
+.item:last-child{border:none}
+.item .nm{font-weight:600}
+.item .mt{color:#888;font-size:12px;margin-top:2px}
+.item .ac{display:flex;gap:5px}
+.item .ac button{padding:5px 10px;font-size:12px}
+.empty{text-align:center;padding:30px;color:#999}

@@ -125,6 +125,10 @@ if (envParams.LIST_ADD_MUSIC_LOCATION_TYPE) {
   }
 }
 
+if (envParams.ADMIN_TOKEN) {
+  global.lx.adminToken = envParams.ADMIN_TOKEN
+}
+
 if (envUsers.length) {
   const users: LX.Config['users'] = []
   let u
@@ -181,6 +185,11 @@ const checkUserConfig = (users: LX.Config['users']) => {
 checkAndCreateDir(global.lx.logPath)
 checkAndCreateDir(global.lx.dataPath)
 checkAndCreateDir(global.lx.userPath)
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const { initUserConfig } = require('@/user/userConfig')
+initUserConfig()
+
 checkUserConfig(global.lx.config.users)
 
 console.log(`Users:
@@ -226,5 +235,13 @@ require('@/utils/migrate').default(global.lx.dataPath, global.lx.userPath)
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const { startServer } = require('@/server')
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const { setAdminToken } = require('@/server/admin')
+if (global.lx.adminToken) {
+  setAdminToken(global.lx.adminToken)
+  console.log('Admin panel enabled, token set')
+} else {
+  console.log('Admin panel disabled (ADMIN_TOKEN not set)')
+}
 startServer(port, bindIP)
 

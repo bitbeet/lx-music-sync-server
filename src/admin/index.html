@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>LX Music Sync - 管理面板</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="login">
+<h1>LX Music Sync Server</h1>
+<p>管理面板</p>
+<input type="password" id="token" placeholder="管理密钥 ADMIN_TOKEN">
+<button onclick="login()">登录</button>
+<div id="err"></div>
+</div>
+<div id="app" style="display:none">
+<div class="top"><h1>LX Music Sync 管理面板</h1><button onclick="logout()" class="b2">退出</button></div>
+<div class="tabs"><button class="tab on" onclick="tab('users',this)">用户管理</button><button class="tab" onclick="tab('snap',this)">快照管理</button></div>
+<div id="users">
+<h3>添加用户</h3>
+<div class="row"><input id="uname" placeholder="用户名"><input id="upass" type="password" placeholder="密码"><button onclick="addUser()">添加</button></div>
+<div id="uerr"></div>
+<h3>用户列表</h3>
+<div id="ulist"></div>
+</div>
+<div id="snap" style="display:none">
+<h3>选择用户</h3>
+<select id="suser" onchange="loadSnap()"><option value="">-- 选择 --</option></select>
+<div id="sinfo" style="display:none">
+<h3>列表快照</h3><div id="lsnap"></div>
+<h3>不喜欢列表快照</h3><div id="dsnap"></div>
+</div>
+<div id="ierr"></div>
+</div>
+</div>
+<script src="app.js"></script>
+</body>
+</html>

@@ -3,7 +3,7 @@
   "version": "2.1.2",
   "private": true,
   "scripts": {
-    "build": "rimraf server && tsc --project tsconfig.json && tsc-alias -p tsconfig.json",
+    "build": "rimraf server && tsc --project tsconfig.json && tsc-alias -p tsconfig.json && node -e \"require('fs').cpSync('src/admin','server/admin',{recursive:true})\"",
     "start": "node ./index.js",
     "dev": "nodemon",
     "prd": "pm2 start ecosystem.config.js --env production",
